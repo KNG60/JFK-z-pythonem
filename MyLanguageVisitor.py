@@ -14,8 +14,13 @@ class MyLanguageVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyLanguageParser#statement.
-    def visitStatement(self, ctx:MyLanguageParser.StatementContext):
+    # Visit a parse tree produced by MyLanguageParser#printStmt.
+    def visitPrintStmt(self, ctx:MyLanguageParser.PrintStmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyLanguageParser#exprStmt.
+    def visitExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
         return self.visitChildren(ctx)
 
 

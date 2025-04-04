@@ -1,9 +1,11 @@
-// MyLanguage.g4
 grammar MyLanguage;
 
-program : statement+ ;
+program : statement+ EOF ;
 
-statement : expr EOF ;
+statement 
+    : 'print' '(' expr ')'  # printStmt
+    | expr                  # exprStmt
+    ;
 
 expr : expr '+' term   # add
      | expr '-' term   # subtract

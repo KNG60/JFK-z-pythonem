@@ -5,3 +5,6 @@
 
 3. Stwórz plik compiler.py oraz ASTVisitor.py
 4. stworz input.txt z przykadem
+
+**obczakenie drzewa AST**
+<code>antlr4-parse MyLanguage.g4 program input.txt -gui</code>

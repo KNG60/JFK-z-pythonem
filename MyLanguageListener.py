@@ -17,12 +17,21 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyLanguageParser#statement.
-    def enterStatement(self, ctx:MyLanguageParser.StatementContext):
+    # Enter a parse tree produced by MyLanguageParser#printStmt.
+    def enterPrintStmt(self, ctx:MyLanguageParser.PrintStmtContext):
         pass
 
-    # Exit a parse tree produced by MyLanguageParser#statement.
-    def exitStatement(self, ctx:MyLanguageParser.StatementContext):
+    # Exit a parse tree produced by MyLanguageParser#printStmt.
+    def exitPrintStmt(self, ctx:MyLanguageParser.PrintStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#exprStmt.
+    def enterExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#exprStmt.
+    def exitExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
         pass
 
 
