@@ -26,6 +26,24 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#inputStmt.
+    def enterInputStmt(self, ctx:MyLanguageParser.InputStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#inputStmt.
+    def exitInputStmt(self, ctx:MyLanguageParser.InputStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#assignVariableStmt.
+    def enterAssignVariableStmt(self, ctx:MyLanguageParser.AssignVariableStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#assignVariableStmt.
+    def exitAssignVariableStmt(self, ctx:MyLanguageParser.AssignVariableStmtContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#exprStmt.
     def enterExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
         pass
@@ -62,12 +80,84 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyLanguageParser#number.
-    def enterNumber(self, ctx:MyLanguageParser.NumberContext):
+    # Enter a parse tree produced by MyLanguageParser#divide.
+    def enterDivide(self, ctx:MyLanguageParser.DivideContext):
         pass
 
-    # Exit a parse tree produced by MyLanguageParser#number.
-    def exitNumber(self, ctx:MyLanguageParser.NumberContext):
+    # Exit a parse tree produced by MyLanguageParser#divide.
+    def exitDivide(self, ctx:MyLanguageParser.DivideContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#multiply.
+    def enterMultiply(self, ctx:MyLanguageParser.MultiplyContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#multiply.
+    def exitMultiply(self, ctx:MyLanguageParser.MultiplyContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#factorExpr.
+    def enterFactorExpr(self, ctx:MyLanguageParser.FactorExprContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#factorExpr.
+    def exitFactorExpr(self, ctx:MyLanguageParser.FactorExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#intNumber.
+    def enterIntNumber(self, ctx:MyLanguageParser.IntNumberContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#intNumber.
+    def exitIntNumber(self, ctx:MyLanguageParser.IntNumberContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#floatNumber.
+    def enterFloatNumber(self, ctx:MyLanguageParser.FloatNumberContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#floatNumber.
+    def exitFloatNumber(self, ctx:MyLanguageParser.FloatNumberContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#string.
+    def enterString(self, ctx:MyLanguageParser.StringContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#string.
+    def exitString(self, ctx:MyLanguageParser.StringContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#variable.
+    def enterVariable(self, ctx:MyLanguageParser.VariableContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#variable.
+    def exitVariable(self, ctx:MyLanguageParser.VariableContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#bracket.
+    def enterBracket(self, ctx:MyLanguageParser.BracketContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#bracket.
+    def exitBracket(self, ctx:MyLanguageParser.BracketContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#exprList.
+    def enterExprList(self, ctx:MyLanguageParser.ExprListContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#exprList.
+    def exitExprList(self, ctx:MyLanguageParser.ExprListContext):
         pass
 
 

@@ -1,11 +1,12 @@
 import sys
 
 from antlr4 import *
+
 from ASTVisitor import ASTVisitor
-from llvmlite import binding, ir
 from MyLanguageLexer import MyLanguageLexer
 from MyLanguageParser import MyLanguageParser
 
+# from llvmlite import binding, ir
 
 def parse_input(input_file):
     input_stream = FileStream(input_file)

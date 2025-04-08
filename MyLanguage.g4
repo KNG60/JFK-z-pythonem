@@ -3,17 +3,34 @@ grammar MyLanguage;
 program : statement+ EOF ;
 
 statement 
-    : 'print' '(' expr ')'  # printStmt
+    : 'ctrl_v' '('exprList')'  # printStmt
+    | VARIABLE '=' 'ctrl_c'    # inputStmt
+    | VARIABLE '=' expr     #assignVariableStmt
     | expr                  # exprStmt
     ;
 
-expr : expr '+' term   # add
-     | expr '-' term   # subtract
-     | term            # termExpr
+expr : expr '+' term        # add
+     | expr '-' term        # subtract
+     | term                 # termExpr
      ;
 
-term : INT             # number
+term : term '*' factor      # multiply
+     | term '/' factor      # divide
+     | term ':' factor      # divide
+     | factor               # factorExpr
      ;
+
+factor : INT                # intNumber
+       | FLOAT              # floatNumber
+       | STRING             # string
+       | VARIABLE           # variable
+       | '(' expr ')'       # bracket
+       ;
+
+exprList : expr (',' expr)*;
 
 INT : [0-9]+ ;
+FLOAT : [0-9]+ '.' [0-9]+;
+STRING : '"' ~["]* '"' ;
+VARIABLE : [a-zA-Z_][a-zA-Z_0-9]*;
 WS : [ \t\r\n]+ -> skip ;
