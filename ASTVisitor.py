@@ -64,6 +64,39 @@ class ASTVisitor(MyLanguageVisitor):
     def visitTermExpr(self, ctx):
         return self.visit(ctx.getChild(0))  
 
+# array
+    def visitAssignArrayStmt(self, ctx):
+        array_name = ctx.VARIABLE().getText()
+        elements = [self.visit(expr) for expr in ctx.arrayExpr().exprList().expr()]
+        self.symbols[array_name] = elements
+        return elements
+
+    def visitArrayAccess(self, ctx):
+        array_name = ctx.VARIABLE().getText()
+        index = self.visit(ctx.expr())
+        if array_name in self.symbols:
+            array = self.symbols[array_name]
+            if index < len(array):
+                return array[index]
+            else:
+                raise IndexError(f"Index {index} out of bounds for array : {array_name} 🎪")
+        else:
+            raise ValueError(f"Undefined array: {array_name} 👁️  👄 👁️ ")
+    
+    def visitReassignArrayStmt(self, ctx):
+        array_name = ctx.VARIABLE().getText()
+        index = self.visit(ctx.expr(0))
+        value = self.visit(ctx.expr(1))
+        if array_name in self.symbols:
+            array = self.symbols[array_name]
+            if index < len(array):
+                array[index] = value
+            else:
+                raise IndexError(f"Index {index} out of bounds for array : {array_name} 🎪")
+        else:
+            raise ValueError(f"Undefined array: {array_name} 👁️  👄 👁️ ")
+        return value
+
 # units
     def visitIntNumber(self, ctx):
         return int(ctx.getChild(0).getText())  

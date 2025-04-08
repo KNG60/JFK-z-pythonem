@@ -1,9 +1,6 @@
-a = 5
-ctrl_v("enter a: ")
-a = ctrl_c
-ctrl_v("enter b: ")
-b = ctrl_c
+Abc=[1, 2, "super string za 3 pkt"]
+lista2 = [0, 3, -4]
+Abc[1] = lista2
+test = Abc[1]
 
-ctrl_v("your input")
-
-ctrl_v("summe of a+b:", 1a + b)
+ctrl_v(test[1] - test[2])

@@ -44,6 +44,24 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#assignArrayStmt.
+    def enterAssignArrayStmt(self, ctx:MyLanguageParser.AssignArrayStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#assignArrayStmt.
+    def exitAssignArrayStmt(self, ctx:MyLanguageParser.AssignArrayStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#reassignArrayStmt.
+    def enterReassignArrayStmt(self, ctx:MyLanguageParser.ReassignArrayStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#reassignArrayStmt.
+    def exitReassignArrayStmt(self, ctx:MyLanguageParser.ReassignArrayStmtContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#exprStmt.
     def enterExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
         pass
@@ -143,12 +161,30 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#arrayAccess.
+    def enterArrayAccess(self, ctx:MyLanguageParser.ArrayAccessContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#arrayAccess.
+    def exitArrayAccess(self, ctx:MyLanguageParser.ArrayAccessContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#bracket.
     def enterBracket(self, ctx:MyLanguageParser.BracketContext):
         pass
 
     # Exit a parse tree produced by MyLanguageParser#bracket.
     def exitBracket(self, ctx:MyLanguageParser.BracketContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#arrayExpr.
+    def enterArrayExpr(self, ctx:MyLanguageParser.ArrayExprContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#arrayExpr.
+    def exitArrayExpr(self, ctx:MyLanguageParser.ArrayExprContext):
         pass
 
 

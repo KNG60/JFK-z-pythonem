@@ -6,6 +6,8 @@ statement
     : 'ctrl_v' '('exprList')'  # printStmt
     | VARIABLE '=' 'ctrl_c'    # inputStmt
     | VARIABLE '=' expr     #assignVariableStmt
+    | VARIABLE '=' arrayExpr # assignArrayStmt
+    | VARIABLE '['expr']' '=' expr # reassignArrayStmt
     | expr                  # exprStmt
     ;
 
@@ -24,12 +26,14 @@ factor : INT                # intNumber
        | FLOAT              # floatNumber
        | STRING             # string
        | VARIABLE           # variable
+       | VARIABLE '[' expr ']' # arrayAccess
        | '(' expr ')'       # bracket
        ;
 
-exprList : expr (',' expr)*;
+arrayExpr : '[' exprList? ']';
 
-INT : [0-9]+ ;
+exprList : expr (',' expr)*;
+INT : '-'?[0-9]+ ;
 FLOAT : [0-9]+ '.' [0-9]+;
 STRING : '"' ~["]* '"' ;
 VARIABLE : [a-zA-Z_][a-zA-Z_0-9]*;

@@ -29,6 +29,16 @@ class MyLanguageVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyLanguageParser#assignArrayStmt.
+    def visitAssignArrayStmt(self, ctx:MyLanguageParser.AssignArrayStmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyLanguageParser#reassignArrayStmt.
+    def visitReassignArrayStmt(self, ctx:MyLanguageParser.ReassignArrayStmtContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyLanguageParser#exprStmt.
     def visitExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
         return self.visitChildren(ctx)
@@ -84,8 +94,18 @@ class MyLanguageVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyLanguageParser#arrayAccess.
+    def visitArrayAccess(self, ctx:MyLanguageParser.ArrayAccessContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyLanguageParser#bracket.
     def visitBracket(self, ctx:MyLanguageParser.BracketContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyLanguageParser#arrayExpr.
+    def visitArrayExpr(self, ctx:MyLanguageParser.ArrayExprContext):
         return self.visitChildren(ctx)
 
 
