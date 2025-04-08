@@ -16,6 +16,13 @@ def parse_input(input_file):
     return parser.program()  # Returns parse tree
 
 if __name__ == "__main__":
-    tree = parse_input("input.txt")
+    try:
+        tree = parse_input("input.txt")
+    except Exception as e:
+        print(f"Failed to parse program: {str(e)}")
     visitor = ASTVisitor()
-    visitor.visit(tree)  # Process AST
+    try:
+        visitor.visit(tree)  # Process AST
+    except Exception as e:
+        print(f"Failed to run program: {str(e)}")
+    input("\nPress Enter to exit...")

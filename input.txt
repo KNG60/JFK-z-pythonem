@@ -3,4 +3,4 @@ lista2 = [0, 3, -4]
 Abc[1] = lista2
 test = Abc[1]
 
-ctrl_v(test[1] - test[2])
+ctrl_v(test[1])
