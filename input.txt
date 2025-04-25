@@ -1,6 +1,9 @@
-Abc=[1, 2, "super string za 3 pkt"]
-lista2 = [0, 3, -4]
-Abc[1] = lista2
-test = Abc[1]
+list_1=[1, 2, "super string za 3 pkt"]
+list_2 = [0, 3, -4]
+test = list_1[2]
 
-ctrl_v(test[1])
+ctrl_v(test)
+ctrl_v("enter value x:")
+
+x = ctrl_c
+ctrl_v("x=", x)

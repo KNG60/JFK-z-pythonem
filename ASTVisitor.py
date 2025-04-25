@@ -57,8 +57,7 @@ class ASTVisitor(MyLanguageVisitor):
         left = self.visit(ctx.getChild(0))
         right = self.visit(ctx.getChild(2))
         if right == 0 :
-            print('hej')
-            raise ValueError('Division by zero ☠️')
+            raise ValueError('Division by zero, not good...')
         return left / right
 
     def visitTermExpr(self, ctx):
@@ -79,9 +78,9 @@ class ASTVisitor(MyLanguageVisitor):
             if index < len(array):
                 return array[index]
             else:
-                raise IndexError(f"Index {index} out of bounds for array : {array_name} 🎪")
+                raise IndexError(f"Index {index} out of bounds for array : {array_name} O_O")
         else:
-            raise ValueError(f"Undefined array: {array_name} 👁️  👄 👁️ ")
+            raise ValueError(f"Undefined array: {array_name} O_O")
     
     def visitReassignArrayStmt(self, ctx):
         array_name = ctx.VARIABLE().getText()
@@ -92,9 +91,9 @@ class ASTVisitor(MyLanguageVisitor):
             if index < len(array):
                 array[index] = value
             else:
-                raise IndexError(f"Index {index} out of bounds for array : {array_name} 🎪")
+                raise IndexError(f"Index {index} out of bounds for array : {array_name} O_O")
         else:
-            raise ValueError(f"Undefined array: {array_name} 👁️  👄 👁️ ")
+            raise ValueError(f"Undefined array: {array_name} O_O")
         return value
 
 # units
@@ -115,5 +114,5 @@ class ASTVisitor(MyLanguageVisitor):
     def visitVariable(self, ctx):
         var_name = ctx.getText()
         if var_name not in self.symbols:
-            raise ValueError(f"Undefined variable: {var_name} 👁️  👄 👁️ ") 
+            raise ValueError(f"Undefined variable: {var_name} O_O") 
         return self.symbols[var_name]

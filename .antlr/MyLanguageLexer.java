@@ -1,4 +1,4 @@
-// Generated from c:/Users/kacpe/Desktop/magisterka/JFK/practise/nauka_z_GPT_v2/MyLanguage.g4 by ANTLR 4.13.1
+// Generated from c:/Users/kacpe/Desktop/magisterka/JFK/practise/JFK_z_pythonem/MyLanguage.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
