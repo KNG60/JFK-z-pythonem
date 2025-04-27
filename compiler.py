@@ -1,3 +1,4 @@
+import os
 import sys
 
 from antlr4 import *
@@ -16,11 +17,13 @@ def parse_input(input_file):
     return parser.program()  # Returns parse tree
 
 if __name__ == "__main__":
-    with open('output.ll', 'r') as llvm_ir:
-        llvm_ir = llvm_ir.read()
-        print(llvm_ir)
+    #Read input code file
+    if len(sys.argv) < 2:
+        print("compiler <input file>")
+        sys.exit(1)
+    plik = sys.argv[1]
     try:
-        tree = parse_input("input.txt")
+        tree = parse_input(plik)
     except Exception as e:
         print(f"Failed to parse program: {str(e)}")
     visitor = ASTVisitor()
