@@ -15,24 +15,24 @@ statement
     | VARIABLE '['expr']' '=' expr # reassignArrayStmt
     | VARIABLE '=' 'new' VARIABLE # structInstantiation
     | VARIABLE '.' VARIABLE '=' expr # structFieldAssign
-    | 'return' expr         # returnStmt
+    | 'oddaj' expr         # returnStmt
     | expr                  # exprStmt
     ;
 
 ifstatment
-         : 'if' '(' expr ')' '{' statement* '}' ('else' '{' statement* '}')?
+         : 'naprawde' '(' expr ')' '{' statement* '}' ('zartowalem' '{' statement* '}')?
     ;
 
 forstatment
-         : 'for' '(' VARIABLE '=' expr 'to' expr ')' '{' statement* '}'
+         : 'cyklon' '(' VARIABLE '=' expr 'oko' expr ')' '{' statement* '}'
     ;
 
 functionDecl
-         : 'function' VARIABLE '(' paramList? ')' '{' statement* '}'
+         : 'rozkaz_arr' VARIABLE '(' paramList? ')' '{' statement* '}'
     ;
 
 structureDecl
-         : 'struct' VARIABLE '{' structField* '}'
+         : 'lawica' VARIABLE '{' structField* '}'
     ;
 
 structField
@@ -90,7 +90,7 @@ VARIABLE : [a-zA-Z_][a-zA-Z_0-9]*;
 WS : [ \t\r\n]+ -> skip ;
 
 classDecl
-    : 'class' VARIABLE '{' classMember* '}'
+    : 'klan' VARIABLE '{' classMember* '}'
     ;
 
 classMember

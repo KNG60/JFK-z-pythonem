@@ -1,52 +1,67 @@
-x = 5
-y = [1,2,3]
-if (x != 5) {
-    ctrl_v("x is greater than 5")
-} else {ctrl_v("x is lower than 5")}
+start = 0
+stop  = 12
+cyklon (i = start oko stop) {
+    ctrl_v("skala Buforta", i)
+}
 
-start_value = 1
-end_value  = 10
-for (i = start_value to end_value) {
-    ctrl_v("step", i)
+ctrl_v("Podaj wiatr w skali Buforta :")
+wiatr_w_Bufortach = ctrl_c
+
+naprawde (wiatr_w_Bufortach >= 12) {
+    ctrl_v("Koniec swiata, idz na piwo")
+} zartowalem {
+    naprawde (wiatr_w_Bufortach >= 9) {
+        ctrl_v("zakaz wyplywania, zalecane piwko") 
+    } zartowalem {
+         ctrl_v("postawic zagle, wyjac szpadle")
+        }
 }
 
 global_var = 100
 
-function calculate(a, b) {
-    local_sum = a + b
-    ctrl_v("Local sum:", local_sum)
-    ctrl_v("Global var:", global_var)
-    return local_sum
+rozkaz_arr zaopatrzenie(dni_podrozy, liczba_zalogi) {
+    zaopatrzenie_piwa = 0
+    zaopatrzenie_piwa = 4*liczba_zalogi*dni_podrozy
+    ctrl_v("dni podrozy", dni_podrozy)
+    ctrl_v("liczba zalogi", liczba_zalogi)
+    ctrl_v("zapotrzebowanie", zaopatrzenie_piwa, "piw")
+    oddaj zaopatrzenie_piwa
 }
-result = calculate(5, 3)
-ctrl_v("Result:", result)
+result = zaopatrzenie(5, 3)
 
-struct Person {
-    name: string
-    age: int
-    scores: array
+lawica Majtek {
+    imie: string
+    wiek: int
+    wyposazenie: array
 }
 
-person = new Person
-person.name = "John"
-person.age = 25
-person.scores = [85, 90, 95]
+person = new Majtek
+person.imie = "Krystian"
+person.wiek = 25
+person.wyposazenie = ["kij", "hamak", "poker"]
 
-ctrl_v("Name:", person.name)
-ctrl_v("Age:", person.age)
-ctrl_v("Scores:", person.scores)
+ctrl_v("imie ", person.imie)
+ctrl_v("wiek", person.wiek)
+ctrl_v("wyposazenie", person.wyposazenie)
 
-class User {
-    name: string
-    age: int
+klan Statek {
+    nazwa: string
+    liczba_armat: int,
+    masa : float,
+    objetosc : float
     
-    function sayHello() {
-        ctrl_v("Hello, my name is ", name)
+    rozkaz_arr ladownosc() {
+        ladownosc = objetosc * 0.997 - masa
+        oddaj ladownosc
     }
 }
 
-user1 = new User
+HMS_Viktoria = new Statek
 
-user1.name = "John"
-user1.age = 25
-user1.sayHello()
+HMS_Viktoria.nazwa = "HMS_Viktoria"
+HMS_Viktoria.liczba_armat = 102
+HMS_Viktoria.masa = 3500.2
+HMS_Viktoria.objetosc = 10000
+ladownosc = HMS_Viktoria.ladownosc()
+ctrl_v("Statek", HMS_Viktoria.nazwa)
+ctrl_v("Moze zaladowac", ladownosc, "ton")

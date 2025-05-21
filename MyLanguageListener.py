@@ -17,6 +17,51 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#ifElseStmt.
+    def enterIfElseStmt(self, ctx:MyLanguageParser.IfElseStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#ifElseStmt.
+    def exitIfElseStmt(self, ctx:MyLanguageParser.IfElseStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#forStmt.
+    def enterForStmt(self, ctx:MyLanguageParser.ForStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#forStmt.
+    def exitForStmt(self, ctx:MyLanguageParser.ForStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#functionDeclStmt.
+    def enterFunctionDeclStmt(self, ctx:MyLanguageParser.FunctionDeclStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#functionDeclStmt.
+    def exitFunctionDeclStmt(self, ctx:MyLanguageParser.FunctionDeclStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#structureDeclStmt.
+    def enterStructureDeclStmt(self, ctx:MyLanguageParser.StructureDeclStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#structureDeclStmt.
+    def exitStructureDeclStmt(self, ctx:MyLanguageParser.StructureDeclStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#classDeclStmt.
+    def enterClassDeclStmt(self, ctx:MyLanguageParser.ClassDeclStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#classDeclStmt.
+    def exitClassDeclStmt(self, ctx:MyLanguageParser.ClassDeclStmtContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#printStmt.
     def enterPrintStmt(self, ctx:MyLanguageParser.PrintStmtContext):
         pass
@@ -62,6 +107,33 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#structInstantiation.
+    def enterStructInstantiation(self, ctx:MyLanguageParser.StructInstantiationContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#structInstantiation.
+    def exitStructInstantiation(self, ctx:MyLanguageParser.StructInstantiationContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#structFieldAssign.
+    def enterStructFieldAssign(self, ctx:MyLanguageParser.StructFieldAssignContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#structFieldAssign.
+    def exitStructFieldAssign(self, ctx:MyLanguageParser.StructFieldAssignContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#returnStmt.
+    def enterReturnStmt(self, ctx:MyLanguageParser.ReturnStmtContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#returnStmt.
+    def exitReturnStmt(self, ctx:MyLanguageParser.ReturnStmtContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#exprStmt.
     def enterExprStmt(self, ctx:MyLanguageParser.ExprStmtContext):
         pass
@@ -71,12 +143,84 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#ifstatment.
+    def enterIfstatment(self, ctx:MyLanguageParser.IfstatmentContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#ifstatment.
+    def exitIfstatment(self, ctx:MyLanguageParser.IfstatmentContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#forstatment.
+    def enterForstatment(self, ctx:MyLanguageParser.ForstatmentContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#forstatment.
+    def exitForstatment(self, ctx:MyLanguageParser.ForstatmentContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#functionDecl.
+    def enterFunctionDecl(self, ctx:MyLanguageParser.FunctionDeclContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#functionDecl.
+    def exitFunctionDecl(self, ctx:MyLanguageParser.FunctionDeclContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#structureDecl.
+    def enterStructureDecl(self, ctx:MyLanguageParser.StructureDeclContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#structureDecl.
+    def exitStructureDecl(self, ctx:MyLanguageParser.StructureDeclContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#structField.
+    def enterStructField(self, ctx:MyLanguageParser.StructFieldContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#structField.
+    def exitStructField(self, ctx:MyLanguageParser.StructFieldContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#type.
+    def enterType(self, ctx:MyLanguageParser.TypeContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#type.
+    def exitType(self, ctx:MyLanguageParser.TypeContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#paramList.
+    def enterParamList(self, ctx:MyLanguageParser.ParamListContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#paramList.
+    def exitParamList(self, ctx:MyLanguageParser.ParamListContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#add.
     def enterAdd(self, ctx:MyLanguageParser.AddContext):
         pass
 
     # Exit a parse tree produced by MyLanguageParser#add.
     def exitAdd(self, ctx:MyLanguageParser.AddContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#equal.
+    def enterEqual(self, ctx:MyLanguageParser.EqualContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#equal.
+    def exitEqual(self, ctx:MyLanguageParser.EqualContext):
         pass
 
 
@@ -95,6 +239,51 @@ class MyLanguageListener(ParseTreeListener):
 
     # Exit a parse tree produced by MyLanguageParser#subtract.
     def exitSubtract(self, ctx:MyLanguageParser.SubtractContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#lessThan.
+    def enterLessThan(self, ctx:MyLanguageParser.LessThanContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#lessThan.
+    def exitLessThan(self, ctx:MyLanguageParser.LessThanContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#notEqual.
+    def enterNotEqual(self, ctx:MyLanguageParser.NotEqualContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#notEqual.
+    def exitNotEqual(self, ctx:MyLanguageParser.NotEqualContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#greaterEqual.
+    def enterGreaterEqual(self, ctx:MyLanguageParser.GreaterEqualContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#greaterEqual.
+    def exitGreaterEqual(self, ctx:MyLanguageParser.GreaterEqualContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#lessEqual.
+    def enterLessEqual(self, ctx:MyLanguageParser.LessEqualContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#lessEqual.
+    def exitLessEqual(self, ctx:MyLanguageParser.LessEqualContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#greaterThan.
+    def enterGreaterThan(self, ctx:MyLanguageParser.GreaterThanContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#greaterThan.
+    def exitGreaterThan(self, ctx:MyLanguageParser.GreaterThanContext):
         pass
 
 
@@ -170,6 +359,42 @@ class MyLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyLanguageParser#functionCall.
+    def enterFunctionCall(self, ctx:MyLanguageParser.FunctionCallContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#functionCall.
+    def exitFunctionCall(self, ctx:MyLanguageParser.FunctionCallContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#methodCall.
+    def enterMethodCall(self, ctx:MyLanguageParser.MethodCallContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#methodCall.
+    def exitMethodCall(self, ctx:MyLanguageParser.MethodCallContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#structAccess.
+    def enterStructAccess(self, ctx:MyLanguageParser.StructAccessContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#structAccess.
+    def exitStructAccess(self, ctx:MyLanguageParser.StructAccessContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#arrayLiteral.
+    def enterArrayLiteral(self, ctx:MyLanguageParser.ArrayLiteralContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#arrayLiteral.
+    def exitArrayLiteral(self, ctx:MyLanguageParser.ArrayLiteralContext):
+        pass
+
+
     # Enter a parse tree produced by MyLanguageParser#bracket.
     def enterBracket(self, ctx:MyLanguageParser.BracketContext):
         pass
@@ -194,6 +419,33 @@ class MyLanguageListener(ParseTreeListener):
 
     # Exit a parse tree produced by MyLanguageParser#exprList.
     def exitExprList(self, ctx:MyLanguageParser.ExprListContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#classDecl.
+    def enterClassDecl(self, ctx:MyLanguageParser.ClassDeclContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#classDecl.
+    def exitClassDecl(self, ctx:MyLanguageParser.ClassDeclContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#classField.
+    def enterClassField(self, ctx:MyLanguageParser.ClassFieldContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#classField.
+    def exitClassField(self, ctx:MyLanguageParser.ClassFieldContext):
+        pass
+
+
+    # Enter a parse tree produced by MyLanguageParser#classMethod.
+    def enterClassMethod(self, ctx:MyLanguageParser.ClassMethodContext):
+        pass
+
+    # Exit a parse tree produced by MyLanguageParser#classMethod.
+    def exitClassMethod(self, ctx:MyLanguageParser.ClassMethodContext):
         pass
 
 
