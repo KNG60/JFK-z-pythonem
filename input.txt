@@ -46,8 +46,8 @@ ctrl_v("wyposazenie", person.wyposazenie)
 
 klan Statek {
     nazwa: string
-    liczba_armat: int,
-    masa : float,
+    liczba_armat: int
+    masa : float
     objetosc : float
     
     rozkaz_arr ladownosc() {
