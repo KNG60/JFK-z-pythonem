@@ -1,9 +1,10 @@
-list_1=[1, 2, "super string za 3 pkt"]
-list_2 = [0, 3, -4]
-test = list_1[2]
+x = 5
+if (x != 5) {
+    ctrl_v("x is greater than 5")
+} else {ctrl_v("x is lower than 5")}
 
-ctrl_v(test)
-ctrl_v("enter value x:")
-
-x = ctrl_c
-ctrl_v("x=", x)
+start_value = 1
+end_value  = 10.2
+for (i = start_value to end_value) {
+    ctrl_v("step", i)
+}
