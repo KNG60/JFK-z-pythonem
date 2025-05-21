@@ -6,13 +6,86 @@ class ASTVisitor(MyLanguageVisitor):
 
     # assign variable and store them
     def __init__(self):
-        self.symbols = {}
+        self.symbols = {}  # Global variables
+        self.functions = {}  # Function definitions
+        self.current_scope = None  # Current function scope
+
+    def create_scope(self):
+        return {'parent': self.current_scope, 'symbols': {}}
+
+    def get_variable(self, name):
+        # First check in current scope
+        if self.current_scope and name in self.current_scope['symbols']:
+            return self.current_scope['symbols'][name]
+        # Then check in global scope
+        return self.symbols.get(name)
+
+    def set_variable(self, name, value):
+        if self.current_scope:
+            self.current_scope['symbols'][name] = value
+        else:
+            self.symbols[name] = value
+
+    def visitFunctionDeclStmt(self, ctx):
+        func_name = ctx.functionDecl().VARIABLE().getText()
+        # Store function definition
+        self.functions[func_name] = {
+            'params': [param.getText() for param in ctx.functionDecl().paramList().VARIABLE()] if ctx.functionDecl().paramList() else [],
+            'body': ctx.functionDecl().statement()
+        }
+        return None
+
+    def visitFunctionCall(self, ctx):
+        func_name = ctx.VARIABLE().getText()
+        if func_name not in self.functions:
+            raise ValueError(f"Undefined function: {func_name}")
+
+        # Get function definition
+        func_def = self.functions[func_name]
+
+        # Get arguments
+        args = []
+        if ctx.exprList():
+            args = [self.visit(arg) for arg in ctx.exprList().expr()]
+
+        # Check argument count
+        if len(args) != len(func_def['params']):
+            raise ValueError(
+                f"Function {func_name} expects {len(func_def['params'])} arguments, got {len(args)}")
+
+        # Create new scope for function
+        old_scope = self.current_scope
+        self.current_scope = self.create_scope()
+
+        # Set parameters in new scope
+        for param_name, arg_value in zip(func_def['params'], args):
+            self.current_scope['symbols'][param_name] = arg_value
+
+        # Execute function body
+        result = None
+        try:
+            for stmt in func_def['body']:
+                result = self.visit(stmt)
+        except ReturnValue as ret:
+            result = ret.value
+
+        # Restore old scope
+        self.current_scope = old_scope
+        return result
+
+    def visitVariable(self, ctx):
+        var_name = ctx.getText()
+        value = self.get_variable(var_name)
+        if value is None:
+            raise ValueError(f"Undefined variable: {var_name}")
+        return value
 
     def visitAssignVariableStmt(self, ctx):
         var_name = ctx.VARIABLE().getText()
         value = self.visit(ctx.expr())
-        self.symbols[var_name] = value
+        self.set_variable(var_name, value)
         return value
+
 # ifElseStmt
 
     def visitIfElseStmt(self, ctx):
@@ -136,12 +209,6 @@ class ASTVisitor(MyLanguageVisitor):
         raw = ctx.getText()
         return bytes(raw[1:-1], "utf-8").decode("unicode_escape")
 
-    def visitVariable(self, ctx):
-        var_name = ctx.getText()
-        if var_name not in self.symbols:
-            raise ValueError(f"Undefined variable: {var_name} O_O")
-        return self.symbols[var_name]
-
     def visitGreaterThan(self, ctx):
         left = self.visit(ctx.getChild(0))
         right = self.visit(ctx.getChild(2))
@@ -193,3 +260,12 @@ class ASTVisitor(MyLanguageVisitor):
                 self.visit(stmt)
 
         return None
+
+    def visitReturnStmt(self, ctx):
+        return self.visit(ctx.expr())
+
+
+class ReturnValue(Exception):
+    def __init__(self, value):
+        self.value = value
+        super().__init__()

@@ -5,11 +5,13 @@ program : statement+ EOF ;
 statement 
     : ifstatment              # ifElseStmt
     | forstatment            # forStmt
+    | functionDecl          # functionDeclStmt
     |'ctrl_v' '('exprList')'  # printStmt
     | VARIABLE '=' 'ctrl_c'    # inputStmt
     | VARIABLE '=' expr     #assignVariableStmt
     | VARIABLE '=' arrayExpr # assignArrayStmt
     | VARIABLE '['expr']' '=' expr # reassignArrayStmt
+    | 'return' expr         # returnStmt
     | expr                  # exprStmt
     ;
 ifstatment
@@ -18,6 +20,14 @@ ifstatment
 
 forstatment
          : 'for' '(' VARIABLE '=' expr 'to' expr ')' '{' statement* '}'
+    ;
+
+functionDecl
+         : 'function' VARIABLE '(' paramList? ')' '{' statement* '}'
+    ;
+
+paramList
+         : VARIABLE (',' VARIABLE)*
     ;
 
 expr : expr '+' term        # add
@@ -42,6 +52,7 @@ factor : INT                # intNumber
        | STRING             # string
        | VARIABLE           # variable
        | VARIABLE '[' expr ']' # arrayAccess
+       | VARIABLE '(' exprList? ')' # functionCall
        | '(' expr ')'       # bracket
        ;
 
