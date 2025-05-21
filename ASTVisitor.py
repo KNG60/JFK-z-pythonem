@@ -8,6 +8,7 @@ class ASTVisitor(MyLanguageVisitor):
     def __init__(self):
         self.symbols = {}  # Global variables
         self.functions = {}  # Function definitions
+        self.structures = {}  # Structure definitions
         self.current_scope = None  # Current function scope
 
     def create_scope(self):
@@ -159,39 +160,48 @@ class ASTVisitor(MyLanguageVisitor):
         return self.visit(ctx.getChild(0))
 
 # array
+    def visitArrayExpr(self, ctx):
+        elements = []
+        # Get all expressions in the array
+        for i in range(ctx.getChildCount()):
+            child = ctx.getChild(i)
+            if isinstance(child, MyLanguageParser.ExprContext):
+                value = self.visit(child)
+                elements.append(value)
+        return elements
+
     def visitAssignArrayStmt(self, ctx):
-        array_name = ctx.VARIABLE().getText()
-        elements = [self.visit(expr)
-                    for expr in ctx.arrayExpr().exprList().expr()]
-        self.symbols[array_name] = elements
+        var_name = ctx.VARIABLE().getText()
+        elements = self.visit(ctx.arrayExpr())
+        self.set_variable(var_name, elements)
         return elements
 
     def visitArrayAccess(self, ctx):
         array_name = ctx.VARIABLE().getText()
         index = self.visit(ctx.expr())
-        if array_name in self.symbols:
-            array = self.symbols[array_name]
-            if index < len(array):
-                return array[index]
-            else:
-                raise IndexError(
-                    f"Index {index} out of bounds for array : {array_name} O_O")
-        else:
-            raise ValueError(f"Undefined array: {array_name} O_O")
+        array = self.get_variable(array_name)
+        if array is None:
+            raise ValueError(f"Undefined array: {array_name}")
+        if not isinstance(array, list):
+            raise ValueError(f"Variable {array_name} is not an array")
+        if index < 0 or index >= len(array):
+            raise ValueError(
+                f"Index {index} out of bounds for array {array_name}")
+        return array[index]
 
     def visitReassignArrayStmt(self, ctx):
         array_name = ctx.VARIABLE().getText()
         index = self.visit(ctx.expr(0))
         value = self.visit(ctx.expr(1))
-        if array_name in self.symbols:
-            array = self.symbols[array_name]
-            if index < len(array):
-                array[index] = value
-            else:
-                raise IndexError(
-                    f"Index {index} out of bounds for array : {array_name} O_O")
-        else:
-            raise ValueError(f"Undefined array: {array_name} O_O")
+        array = self.get_variable(array_name)
+        if array is None:
+            raise ValueError(f"Undefined array: {array_name}")
+        if not isinstance(array, list):
+            raise ValueError(f"Variable {array_name} is not an array")
+        if index < 0 or index >= len(array):
+            raise ValueError(
+                f"Index {index} out of bounds for array {array_name}")
+        array[index] = value
         return value
 
 # units
@@ -263,6 +273,97 @@ class ASTVisitor(MyLanguageVisitor):
 
     def visitReturnStmt(self, ctx):
         return self.visit(ctx.expr())
+
+    def visitStructureDeclStmt(self, ctx):
+        struct_name = ctx.structureDecl().VARIABLE().getText()
+        fields = {}
+
+        # Process each field in the structure
+        for field in ctx.structureDecl().structField():
+            field_name = field.VARIABLE().getText()
+            # Get the type text directly from the type rule
+            # Get the type after the ':'
+            field_type = field.getChild(2).getText()
+            fields[field_name] = field_type
+
+        self.structures[struct_name] = fields
+        return None
+
+    def visitStructFieldAssign(self, ctx):
+        struct_var = ctx.VARIABLE(0).getText()
+        field_name = ctx.VARIABLE(1).getText()
+        value = self.visit(ctx.expr())
+
+        # Get the structure instance
+        struct_instance = self.get_variable(struct_var)
+        if struct_instance is None:
+            raise ValueError(f"Undefined structure variable: {struct_var}")
+
+        # Check if the field exists in the structure definition
+        struct_type = None
+        for name, fields in self.structures.items():
+            if struct_instance is self.get_variable(name):
+                struct_type = name
+                break
+
+        if struct_type and field_name in self.structures[struct_type]:
+            field_type = self.structures[struct_type][field_name]
+            # Validate type if it's an array
+            if field_type == 'array' and not isinstance(value, list):
+                raise ValueError(f"Field {field_name} must be an array")
+
+        # Update the field value
+        struct_instance[field_name] = value
+        return value
+
+    def visitStructAccess(self, ctx):
+        struct_var = ctx.VARIABLE(0).getText()
+        field_name = ctx.VARIABLE(1).getText()
+
+        # Get the structure instance
+        struct_instance = self.get_variable(struct_var)
+        if struct_instance is None:
+            raise ValueError(f"Undefined structure variable: {struct_var}")
+
+        # Get the field value
+        if field_name not in struct_instance:
+            raise ValueError(
+                f"Field {field_name} not found in structure {struct_var}")
+
+        return struct_instance[field_name]
+
+    def create_struct_instance(self, struct_name):
+        if struct_name not in self.structures:
+            raise ValueError(f"Undefined structure type: {struct_name}")
+
+        # Create a new instance with default values based on field types
+        instance = {}
+        for field_name, field_type in self.structures[struct_name].items():
+            if field_type == 'int':
+                instance[field_name] = 0
+            elif field_type == 'float':
+                instance[field_name] = 0.0
+            elif field_type == 'string':
+                instance[field_name] = ""
+            elif field_type == 'array':
+                instance[field_name] = []
+            else:
+                # For custom types, create a new instance
+                instance[field_name] = self.create_struct_instance(field_type)
+
+        return instance
+
+    def visitStructInstantiation(self, ctx):
+        # The variable to store the instance
+        var_name = ctx.VARIABLE(0).getText()
+        struct_name = ctx.VARIABLE(1).getText()  # The structure type
+
+        # Create a new instance of the structure
+        instance = self.create_struct_instance(struct_name)
+
+        # Store the instance in the current scope
+        self.set_variable(var_name, instance)
+        return instance
 
 
 class ReturnValue(Exception):

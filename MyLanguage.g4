@@ -6,14 +6,18 @@ statement
     : ifstatment              # ifElseStmt
     | forstatment            # forStmt
     | functionDecl          # functionDeclStmt
+    | structureDecl         # structureDeclStmt
     |'ctrl_v' '('exprList')'  # printStmt
     | VARIABLE '=' 'ctrl_c'    # inputStmt
     | VARIABLE '=' expr     #assignVariableStmt
     | VARIABLE '=' arrayExpr # assignArrayStmt
     | VARIABLE '['expr']' '=' expr # reassignArrayStmt
+    | VARIABLE '=' 'new' VARIABLE # structInstantiation
+    | VARIABLE '.' VARIABLE '=' expr # structFieldAssign
     | 'return' expr         # returnStmt
     | expr                  # exprStmt
     ;
+
 ifstatment
          : 'if' '(' expr ')' '{' statement* '}' ('else' '{' statement* '}')?
     ;
@@ -24,6 +28,22 @@ forstatment
 
 functionDecl
          : 'function' VARIABLE '(' paramList? ')' '{' statement* '}'
+    ;
+
+structureDecl
+         : 'struct' VARIABLE '{' structField* '}'
+    ;
+
+structField
+         : VARIABLE ':' type
+    ;
+
+type
+         : 'int'
+         | 'float'
+         | 'string'
+         | 'array'
+         | VARIABLE
     ;
 
 paramList
@@ -53,10 +73,12 @@ factor : INT                # intNumber
        | VARIABLE           # variable
        | VARIABLE '[' expr ']' # arrayAccess
        | VARIABLE '(' exprList? ')' # functionCall
+       | VARIABLE '.' VARIABLE # structAccess
+       | arrayExpr          # arrayLiteral
        | '(' expr ')'       # bracket
        ;
 
-arrayExpr : '[' exprList? ']';
+arrayExpr : '[' (expr (',' expr)*)? ']';
 
 exprList : expr (',' expr)*;
 INT : '-'?[0-9]+ ;

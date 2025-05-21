@@ -1,4 +1,5 @@
 x = 5
+y = [1,2,3]
 if (x != 5) {
     ctrl_v("x is greater than 5")
 } else {ctrl_v("x is lower than 5")}
@@ -19,3 +20,18 @@ function calculate(a, b) {
 }
 result = calculate(5, 3)
 ctrl_v("Result:", result)
+
+struct Person {
+    name: string
+    age: int
+    scores: array
+}
+
+person = new Person
+person.name = "John"
+person.age = 25
+person.scores = [85, 90, 95]
+
+ctrl_v("Name:", person.name)
+ctrl_v("Age:", person.age)
+ctrl_v("Scores:", person.scores)
