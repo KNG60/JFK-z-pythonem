@@ -35,3 +35,18 @@ person.scores = [85, 90, 95]
 ctrl_v("Name:", person.name)
 ctrl_v("Age:", person.age)
 ctrl_v("Scores:", person.scores)
+
+class User {
+    name: string
+    age: int
+    
+    function sayHello() {
+        ctrl_v("Hello, my name is ", name)
+    }
+}
+
+user1 = new User
+
+user1.name = "John"
+user1.age = 25
+user1.sayHello()

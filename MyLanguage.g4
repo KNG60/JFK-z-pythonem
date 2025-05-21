@@ -7,6 +7,7 @@ statement
     | forstatment            # forStmt
     | functionDecl          # functionDeclStmt
     | structureDecl         # structureDeclStmt
+    | classDecl            # classDeclStmt
     |'ctrl_v' '('exprList')'  # printStmt
     | VARIABLE '=' 'ctrl_c'    # inputStmt
     | VARIABLE '=' expr     #assignVariableStmt
@@ -73,6 +74,7 @@ factor : INT                # intNumber
        | VARIABLE           # variable
        | VARIABLE '[' expr ']' # arrayAccess
        | VARIABLE '(' exprList? ')' # functionCall
+       | VARIABLE '.' VARIABLE '(' exprList? ')' # methodCall
        | VARIABLE '.' VARIABLE # structAccess
        | arrayExpr          # arrayLiteral
        | '(' expr ')'       # bracket
@@ -86,3 +88,12 @@ FLOAT : [0-9]+ '.' [0-9]+;
 STRING : '"' ~["]* '"' ;
 VARIABLE : [a-zA-Z_][a-zA-Z_0-9]*;
 WS : [ \t\r\n]+ -> skip ;
+
+classDecl
+    : 'class' VARIABLE '{' classMember* '}'
+    ;
+
+classMember
+    : VARIABLE ':' type    # classField
+    | functionDecl         # classMethod
+    ;

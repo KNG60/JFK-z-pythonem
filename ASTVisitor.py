@@ -9,6 +9,7 @@ class ASTVisitor(MyLanguageVisitor):
         self.symbols = {}  # Global variables
         self.functions = {}  # Function definitions
         self.structures = {}  # Structure definitions
+        self.classes = {}  # Class definitions
         self.current_scope = None  # Current function scope
 
     def create_scope(self):
@@ -354,16 +355,121 @@ class ASTVisitor(MyLanguageVisitor):
         return instance
 
     def visitStructInstantiation(self, ctx):
-        # The variable to store the instance
         var_name = ctx.VARIABLE(0).getText()
-        struct_name = ctx.VARIABLE(1).getText()  # The structure type
+        type_name = ctx.VARIABLE(1).getText()
 
-        # Create a new instance of the structure
-        instance = self.create_struct_instance(struct_name)
+        # Check if it's a class or structure
+        if type_name in self.classes:
+            instance = self.create_class_instance(type_name)
+        else:
+            instance = self.create_struct_instance(type_name)
 
-        # Store the instance in the current scope
         self.set_variable(var_name, instance)
         return instance
+
+    def visitClassDeclStmt(self, ctx):
+        class_name = ctx.classDecl().VARIABLE().getText()
+        fields = {}
+        methods = {}
+
+        # Process each member in the class
+        for member in ctx.classDecl().classMember():
+            if hasattr(member, 'VARIABLE') and hasattr(member, 'type'):  # It's a field
+                field_name = member.VARIABLE().getText()
+                field_type = member.type().getText()
+                fields[field_name] = field_type
+            elif hasattr(member, 'functionDecl'):  # It's a method
+                method_name = member.functionDecl().VARIABLE().getText()
+                methods[method_name] = {
+                    'params': [param.getText() for param in member.functionDecl().paramList().VARIABLE()] if member.functionDecl().paramList() else [],
+                    'body': member.functionDecl().statement()
+                }
+
+        self.classes[class_name] = {
+            'fields': fields,
+            'methods': methods
+        }
+        return None
+
+    def create_class_instance(self, class_name):
+        if class_name not in self.classes:
+            raise ValueError(f"Undefined class: {class_name}")
+
+        # Create a new instance with default values based on field types
+        instance = {}
+        class_def = self.classes[class_name]
+
+        # Initialize fields with default values
+        for field_name, field_type in class_def['fields'].items():
+            if field_type == 'int':
+                instance[field_name] = 0
+            elif field_type == 'float':
+                instance[field_name] = 0.0
+            elif field_type == 'string':
+                instance[field_name] = ""
+            elif field_type == 'array':
+                instance[field_name] = []
+            else:
+                # For custom types, create a new instance
+                instance[field_name] = self.create_struct_instance(field_type)
+
+        # Add methods to the instance
+        for method_name, method_def in class_def['methods'].items():
+            instance[method_name] = lambda *args, m=method_name, d=method_def: self.call_class_method(
+                instance, m, d, *args)
+
+        return instance
+
+    def call_class_method(self, instance, method_name, method_def, *args):
+        # Create new scope for method
+        old_scope = self.current_scope
+        self.current_scope = self.create_scope()
+
+        # Add 'this' reference to the scope
+        self.current_scope['symbols']['this'] = instance
+
+        # Add all instance fields to the scope for direct access
+        for field_name, field_value in instance.items():
+            if not callable(field_value):  # Only add non-method fields
+                self.current_scope['symbols'][field_name] = field_value
+
+        # Set parameters in new scope
+        for param_name, arg_value in zip(method_def['params'], args):
+            self.current_scope['symbols'][param_name] = arg_value
+
+        # Execute method body
+        result = None
+        try:
+            for stmt in method_def['body']:
+                result = self.visit(stmt)
+        except ReturnValue as ret:
+            result = ret.value
+
+        # Restore old scope
+        self.current_scope = old_scope
+        return result
+
+    def visitMethodCall(self, ctx):
+        # Get the object and method name
+        obj_name = ctx.VARIABLE(0).getText()
+        method_name = ctx.VARIABLE(1).getText()
+
+        # Get the object instance
+        obj = self.get_variable(obj_name)
+        if obj is None:
+            raise ValueError(f"Undefined object: {obj_name}")
+
+        # Get the method
+        if method_name not in obj:
+            raise ValueError(f"Method {method_name} not found in {obj_name}")
+
+        # Get arguments
+        args = []
+        if ctx.exprList():
+            args = [self.visit(arg) for arg in ctx.exprList().expr()]
+
+        # Call the method
+        return obj[method_name](*args)
 
 
 class ReturnValue(Exception):
